@@ -50,8 +50,48 @@ export default function MyKeyboard() {
         break;
     }
   }
+
+  const firstNumberDisplay = () => {
+    if (result !== null) {
+        return <Text style={result < 99999 ? [GlobalStyles.screenFirstNumber, {color: myColors.result}] : [GlobalStyles.screenFirstNumber, {fontSize: 50, color: myColors.result}]}>{result?.toString()}</Text>; 
+    }
+    if (firstNumber && firstNumber.length < 6) {
+      return <Text style={GlobalStyles.screenFirstNumber}>{firstNumber}</Text>;
+    }
+    if (firstNumber === "") {
+      return <Text style={GlobalStyles.screenFirstNumber}>{"0"}</Text>;
+    }
+    if (firstNumber.length > 5 && firstNumber.length < 8) {
+      return (
+        <Text style={[GlobalStyles.screenFirstNumber, { fontSize: 70 }]}>
+          {firstNumber}
+        </Text>
+      );
+    }
+    if (firstNumber.length > 7) {
+      return (
+        <Text style={[GlobalStyles.screenFirstNumber, { fontSize: 50 }]}>
+          {firstNumber}
+        </Text>
+      );
+    }
+  };
   return (
     <View style={GlobalStyles.viewBottom}>
+      <View
+        style={{
+          height: 120,
+          width: "90%",
+          justifyContent: "flex-end",
+          alignSelf: "center",
+        }}
+      >
+      <Text style={GlobalStyles.screenSecondNumber}>
+        {secondNumber}
+        <Text style={{ color: "purple", fontSize: 50, fontWeight: '500' }}>{operation}</Text>
+      </Text>
+      {firstNumberDisplay()}
+      </View>
        <View style={GlobalStyles.row}>
         <Button title="C" isGray onPress={clear} />
         <Button title="+/-" isGray onPress={() => handleOperationPress("+/-")} />
